@@ -126,54 +126,80 @@ pigment {
   scale <0.125, 1, 0.125>
 }
 
-#declare ZodiacCross = merge {
-  difference {
-    sphere {
-	<0, 0, 0>, 3
-    }
-    sphere {
-	<0, 0, 0>, 2
-    }
+//greek columns are always good
+#declare GreekColumn = union {
+ difference {
+  #declare Col_Radius = 0.5;
+  //primary column mass
+  cylinder {
+        <0, -5, 0>,
+        <0, 5, 0>,
+        Col_Radius
   }
 
-  //crossmembers (remember this is in 3 dimensions, not 2)
-  box {
-    <-5, 0.5, -0.5>,
-    <5, -0.5, 0.5>
-  }
-  box {
-    <-0.5, 5, -0.5>,
-    <0.5, -5, 0.5>
-  }
-  box {
-    <-0.5, 0.5, -5>,
-    <0.5, -0.5, 5>
+  #declare Gouges = 20;
+  #declare G_Depth = 0.1;       //this is also the 'etching' cylinder's
+radius
+  #declare CurGouge = 1;
+  #while (CurGouge <= Gouges)
+   #declare CurAng = (360 / Gouges) * CurGouge;
+   cylinder {
+        <0, -5, 0>,
+        <0, 5, 0>,
+        G_Depth
+        translate <(cosd(CurAng) * Col_Radius), 0, (sind(CurAng) *
+Col_Radius)>
+   }
+   #declare CurGouge = CurGouge + 1;
+  #end
+ }
+
+ //end flare, now beveled nicely with torii
+ difference {
+  cylinder {
+        <0, -5, 0>,
+        <0, -5.1, 0>,
+        (Col_Radius * 1.1)
   }
 
-  //end poles
-  box {	//left
-    <-5.5, 1, -1>,
-    <-5, -1, 1>
+  torus {
+        (Col_Radius * 1.1), 0.1
+        translate <0, -4.95, 0>
   }
-  box { //right
-    <5, 1, -1>,
-    <5.5, -1, 1>
+ }
+
+ difference {
+  cylinder {
+        <0, 5.1, 0>,
+        <0, 5, 0>,
+        (Col_Radius * 1.1)
   }
-  box { //top
-    <-1, 5.5, -1>,
-    <1, 5, 1>
+
+  torus {
+        (Col_Radius * 1.1), 0.1
+        translate <0, 4.95, 0>
   }
-  box { //bottom
-    <-1, -5, -1>,
-    <1, -5.5, 1>
+ }
+
+}
+
+#declare SteppedMount = merge {
+ #declare BaseDim = 10;
+ #declare StepHeight = 0.1;
+ #declare TopBaseDim = 7.5;
+ #declare Steps = 9;    //I like the solar system lol hehe xd xd 8-x
+ #declare StepWidth = (BaseDim - TopBaseDim) / Steps;
+ #declare CurStep = 1;
+ #while (CurStep <= Steps)
+  box { 
+        <((BaseDim - (CurStep * StepWidth)) / -2),
+         ((CurStep - 1) * StepHeight),
+         ((BaseDim - (CurStep * StepWidth)) / -2)>,
+        <((BaseDim - (CurStep * StepWidth)) / 2),
+         (CurStep * StepHeight),
+         ((BaseDim - (CurStep * StepWidth)) / 2)>
   }
-  box { //close
-    <-1, 1, -5.5>,
-    <1, -1, -5>
-  }
-  box { //far
-    <-1, 1, 5>,
-    <1, -1, 5.5>
-  }
+  #declare CurStep = CurStep + 1;
+ #end
 }
 
