@@ -13,6 +13,7 @@
  * y-axis by 60 degrees to complete the sphere
  */
 
+//properly centered
 #declare VesicaPisces = intersection {
         sphere {
           <-2, 0, 0>, 3
@@ -22,6 +23,7 @@
         }
 }
 
+//centered
 #declare VPEye = union {
   difference { //create the hollow 'eye'
     object {
@@ -53,16 +55,20 @@
   light_source {
         <0, 0, 0>
         color Red
-        looks_like {  object {
-                            VesicaPisces
-                            scale <0.25, 0.25, 0.25>
-                            //pigment { color Black }
+        looks_like {
+	  object {
+            VesicaPisces
+            scale <0.25, 0.25, 0.25>
+            //pigment { color Black }
           }
         }
   }
 }
 
-/* DEBUG: This is buggy as HELL */
+/*
+ * Flower of Life 
+ * DEBUG: This is buggy as HELL
+ */
 
 #declare FlowerOfLife = union {
  #local RotAng = 0;
