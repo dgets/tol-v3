@@ -1,16 +1,16 @@
-/* vesica pisces
+/* 
+ * vesica pisces
+ *
  * we're going to try to create the 'flower of life' (and quite possibly
  * extend it into the 'seed of life' later) by creating the first form
- * out of
- * circles and CSGs.  The 2-d form is created by 7 circles; one at the
- * center
- * and 6 radiating out from its center, with radii tangental to the
- * center of
- * the first, skewed by 60 degrees apiece.  Three dimensional will take
- * this
- * into account with two more forms of the first 2-d form, each rotated
- * in the
- * y-axis by 60 degrees to complete the sphere
+ * out of circles and CSGs.  The 2-d form is created by 7 circles; one
+ * at the center and 6 radiating out from its center, with radii
+ * tangental to the center of the first, skewered by 60 degrees apiece.
+ * Three dimensional will take this into account with two more forms of
+ * the first 2-d form, each rotated in the y-axis by 60 degrees to
+ * complete the sphere.
+ *
+ * NOTE: This obviously has not been completed yet.
  */
 
 //properly centered

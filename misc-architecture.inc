@@ -72,6 +72,82 @@ pigment {
 
 */
 
+//adding the previous one for now (this will still need to be
+//translated)
+//DNA Molecule
+#declare DNAStrand = union {
+ #local MolRad = 0.025;
+ #local JoinRad = 0.05 / 6;
+ #local JoinLen = 0.5;
+
+ #local Length = 10;
+ #local TwistPerUnit = 0.5;
+ #local IncPerTwist = 6;
+ #local Step = 0;
+ #local StepInc = 1 / (IncPerTwist / TwistPerUnit);
+ #local StepDeg = (360 / TwistPerUnit) / IncPerTwist;
+ #while ((Step * StepInc) <= 10)
+  sphere {
+        <(cosd(StepDeg * Step) * JoinLen),
+         (sind(StepDeg * Step) * JoinLen),
+         (0 + StepInc)>,
+        MolRad
+        pigment { color Blue }
+  }
+  sphere {
+        <(-cosd(StepDeg * Step) * JoinLen),
+         (-sind(StepDeg * Step) * JoinLen),
+         (0 + StepInc)>,
+        MolRad
+        pigment { color Yellow }
+  }
+  #if (Step != 0)
+   //do one for the above 0[y] coord, one for below
+   sphere {
+        <(cosd(StepDeg * Step) * JoinLen),
+         (sind(StepDeg * Step) * JoinLen),
+         (0 - StepInc)>,
+        MolRad
+        pigment { color Blue }
+   }
+   sphere {
+        <(-cosd(StepDeg * Step) * JoinLen),
+         (-sind(StepDeg * Step) * JoinLen),
+         (0 - StepInc)>,
+        MolRad
+        pigment { color Yellow }
+   }
+  #end
+  #if ((Step / 2) = 0)
+   //this one will have a joining bridge
+   cylinder {
+        <(cosd(StepDeg * Step) * JoinLen),
+         (sind(StepDeg * Step) * JoinLen),
+         (0 + StepInc)>,
+        <(-cosd(StepDeg * Step) * JoinLen),
+         (-sind(StepDeg * Step) * JoinLen),
+         (0 + StepInc)>,
+        JoinRad
+        texture { Gold_Nugget }
+   }
+   #if (Step != 0)
+    cylinder {
+        <(cosd(StepDeg * Step) * JoinLen),
+         (sind(StepDeg * Step) * JoinLen),
+         (0 - StepInc)>,
+        <(-cosd(StepDeg * Step) * JoinLen),
+         (-sind(StepDeg * Step) * JoinLen),
+         (0 - StepInc)>,
+        JoinRad
+        texture { Gold_Nugget }
+    }
+   #end
+  #end
+  #declare Step = Step + 1;
+ #end
+}
+
+
 //for use primarily in carving out windows in 'difference' structures with
 //rounded tops instead of just rectangular prism forms
 #declare ArchToppedCyl = union {
