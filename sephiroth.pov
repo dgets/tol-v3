@@ -26,5 +26,24 @@
 #declare PX3 = cosd(D3);
 #declare PZ3 = sind(D3);
 
+#declare Keter = sphere {
+	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
+	pigment { Med_Purple }
+}
+
+#declare Chokhmah = sphere {
+	<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>, Seph_Diam
+	texture { T_Grnt9 }
+}
+
 #declare Binah = sphere {
+	<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>, Seph_Diam
+	texture { T_Grnt15 }
+}
+
+#declare Top_Triad = union {
+	object { Keter }
+	object { Chokhmah }
+	object { Binah }
+}
 
