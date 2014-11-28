@@ -26,17 +26,38 @@
 #declare PX3 = cosd(D3);
 #declare PZ3 = sind(D3);
 
+/*
+ * Top level triad & 'horizontal' pathways
+ */
+
+//sephira
 #declare Keter = sphere {
+	/*
+	 * Keter or Kether
+	 * The Crown - the Big Bang - Aces in the Minor Arcana
+	 */
 	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
 	pigment { Med_Purple }
 }
 
 #declare Chokhmah = sphere {
+	/*
+	 * Chokhmah or Chockmah
+	 * Wisdom - the full Zodiac - Twos in Minor Arcana, Kings in the
+	 * full court cards of the Tarot; the male, gray; the raw energy
+	 * or 'fuel' of the All
+	 */
 	<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>, Seph_Diam
 	texture { T_Grnt9 }
 }
 
 #declare Binah = sphere {
+	/*
+	 * Binah
+	 * Understanding - Saturn - Threes in Minor Arcana, Queens in
+	 * the full court Tarot; the feminine, black; the 'engine' of
+	 * substance in which the energy/fuel of Chokhmah is burned
+	 */
 	<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>, Seph_Diam
 	texture { T_Grnt15 }
 }
@@ -46,4 +67,6 @@
 	object { Chokhmah }
 	object { Binah }
 }
+
+//pathways
 
