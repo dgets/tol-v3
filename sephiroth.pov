@@ -62,7 +62,11 @@
 	texture { T_Grnt15 }
 }
 
-#declare Top_Triad = union {
+#declare Atziluth = union {
+	/*
+	 * Atziluth
+	 * The world of the Supernals - the Crown & Brow Chakra
+	 */
 	object { Keter }
 	object { Chokhmah }
 	object { Binah }
@@ -70,3 +74,47 @@
 
 //pathways
 
+/*
+ * Second level triad & horizontal pathways
+ */
+
+//sephira
+#declare Chesed = sphere {
+	/*
+	 * Chesed
+	 * Loving kindness (Ahavah, 'love' of god and divine in all
+	 * things
+	 */
+	<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>, Seph_Diam
+	texture {   }
+}
+
+#declare Gevurah = sphere {
+	/*
+	 * Gevurah
+	 * Might/severity (Yirah - 'fear' of god)
+	 */
+	<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>, Seph_Diam
+	texture {   }
+}
+
+#declare Daat = sphere {
+	/*
+	 * Da'at
+	 * Knowledge  (Yichud - Union; union with idea awakens emotions)
+	 */
+	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
+	texture {   }
+}
+
+#declare Beriah = union {
+	/*
+	 * Beri'ah
+	 * The intellectual understanding; the world of creation; need
+	 * to look up the rest of the references heah after I plot the
+	 * spheres & shit
+	 */
+	object { Chesed }
+	object { Gevurah }
+	object { Daat }
+}
