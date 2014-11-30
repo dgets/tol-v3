@@ -108,10 +108,12 @@
 	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
     }
     sphere { <PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, 0.99 * Seph_Diam }
+    interior { I_Glass }
+    pigment { Col_Glass_Old }
   }
   light_source {
-	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>,
-	color { White }
+	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>
+	pigment { color White }
   }
 }
 

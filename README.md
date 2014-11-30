@@ -19,6 +19,7 @@ Just thought I'd drop that update in here.  ;)  Thanks for your
 interest.
 
 -=-=-=-=-
+
 _Previous **README.md** contents follow_:
 
 I first started working on the Qabbalistic Tree of Life (Sephiroth) in

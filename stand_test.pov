@@ -3,14 +3,25 @@
 #include "finish.inc"
 
 #include "merkaba.inc"
+#include "sephiroth.pov"	//change this to .inc?
 
 camera {
-  location <0, 1, -5>
+  location <0, 2, -10>
   look_at <0, 0, -0.5>
 }
 
 sky_sphere {
   pigment { color Gray }
+}
+
+light_source {
+  <-3, 8, -12>
+  pigment { color White }
+}
+
+light_source {
+  <3, 1, -5>
+  pigment { color White }
 }
 
 plane {
@@ -20,14 +31,24 @@ plane {
 }
 
 //objects
-object {
+/* object {
   MerkabaUnlit
-}
+} */
 
-box {
+/* box {
   <-0.5, 0.5, -0.5>,
   <0.5, -0.5, 0.5>
   pigment { color Orange }
   translate <-1.5, 0, 0>
+} */
+
+object {
+	Atziluth
+	translate <0, Dist_Eqlt, 0>
+}
+
+object {
+	Beriah
+	//translate not needed; this should be right where we want it
 }
 
