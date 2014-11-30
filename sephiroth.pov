@@ -37,7 +37,7 @@
 	 * The Crown - the Big Bang - Aces in the Minor Arcana
 	 */
 	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
-	pigment { Med_Purple }
+	pigment { Col_Amethyst_03  }
 }
 
 #declare Chokhmah = sphere {
@@ -48,7 +48,7 @@
 	 * or 'fuel' of the All
 	 */
 	<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>, Seph_Diam
-	texture { T_Grnt9 }
+	texture { T_Stone8 }
 }
 
 #declare Binah = sphere {
@@ -59,7 +59,7 @@
 	 * substance in which the energy/fuel of Chokhmah is burned
 	 */
 	<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>, Seph_Diam
-	texture { T_Grnt15 }
+	texture { T_Stone15 }
 }
 
 #declare Atziluth = union {
@@ -86,7 +86,7 @@
 	 * things
 	 */
 	<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>, Seph_Diam
-	texture {   }
+	texture { T_Stone21  }
 }
 
 #declare Gevurah = sphere {
@@ -95,16 +95,24 @@
 	 * Might/severity (Yirah - 'fear' of god)
 	 */
 	<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>, Seph_Diam
-	texture {   }
+	texture { T_Stone21 }
 }
 
-#declare Daat = sphere {
+#declare Daat = union {
+  difference { 
+    sphere {
 	/*
 	 * Da'at
 	 * Knowledge  (Yichud - Union; union with idea awakens emotions)
 	 */
 	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
-	texture {   }
+    }
+    sphere { <PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, 0.99 * Seph_Diam }
+  }
+  light_source {
+	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>,
+	color { White }
+  }
 }
 
 #declare Beriah = union {
@@ -118,3 +126,5 @@
 	object { Gevurah }
 	object { Daat }
 }
+
+
