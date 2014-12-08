@@ -36,7 +36,7 @@
 	 * Keter or Kether
 	 * The Crown - the Big Bang - Aces in the Minor Arcana
 	 */
-	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
+	<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>, Seph_Diam
 	pigment { Col_Amethyst_03  }
 }
 
@@ -47,7 +47,7 @@
 	 * full court cards of the Tarot; the male, gray; the raw energy
 	 * or 'fuel' of the All
 	 */
-	<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>, Seph_Diam
+	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
 	texture { T_Stone8 }
 }
 
@@ -58,7 +58,7 @@
 	 * the full court Tarot; the feminine, black; the 'engine' of
 	 * substance in which the energy/fuel of Chokhmah is burned
 	 */
-	<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>, Seph_Diam
+	<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>, Seph_Diam
 	texture { T_Stone15 }
 }
 
@@ -94,27 +94,38 @@
 	 * Gevurah
 	 * Might/severity (Yirah - 'fear' of god)
 	 */
-	<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>, Seph_Diam
+	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
 	texture { T_Stone21 }
 }
 
-#declare Daat = union {
-  difference { 
+#declare Daat_struct = difference {
     sphere {
 	/*
 	 * Da'at
 	 * Knowledge  (Yichud - Union; union with idea awakens emotions)
 	 */
-	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, Seph_Diam
+	<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>, Seph_Diam
     }
     sphere { <PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>, 0.99 * Seph_Diam }
     interior { I_Glass }
     pigment { Col_Glass_Old }
-  }
-  light_source {
+}
+/*  interior { I_Glass }
+  pigment { Col_Glass_Old }
+  /*light_source {
 	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>
 	pigment { color White }
-  }
+  }*/
+} */
+
+#declare Daat_light = light_source {
+	<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>
+	color White
+}
+
+#declare Daat = union {
+	object { Daat_struct }
+	object { Daat_light }
 }
 
 #declare Beriah = union {

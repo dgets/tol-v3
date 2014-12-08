@@ -16,12 +16,12 @@ sky_sphere {
 
 light_source {
   <-3, 8, -12>
-  pigment { color White }
+  color White
 }
 
 light_source {
   <3, 1, -5>
-  pigment { color White }
+  color White
 }
 
 plane {
