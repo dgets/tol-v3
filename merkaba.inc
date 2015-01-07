@@ -5,6 +5,13 @@
 #include "metals.inc"
 #include "finish.inc"
 
+//douchebag (ie me or you)
+#declare DoucheBagScaleFactors = (2 / 3);
+#declare DoucheBag = cylinder {
+	<0, 0.5, 0>,
+	<0, -0.5, 0>, 0.15
+}	
+
 //merkaba
 #declare TetrahedronScaleFactor = (1 / 6);
 #declare Tetrahedron_Hollow = difference {
