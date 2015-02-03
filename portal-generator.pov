@@ -29,6 +29,39 @@
   object {
 	Ring
   }
+
 }
 
+//starting the test scene
+
+light_source {
+  <10, 5, -10>
+  color White
+}
+
+light_source {
+  <-2, 7, -5>
+  color Yellow
+}
+
+camera {
+  location <0, 2, 0>
+  look_at <0, 5, 5>
+}
+
+sky_sphere {
+  pigment { color Gray }
+}
+
+plane {
+  <0, 1, 0>, -1
+  pigment { checker color Black color Red }
+}
+
+object {
+  TrplFieldGen
+  scale <5, 5, 5>
+  translate <0, 5, 7.5>
+  pigment { color White }
+}
 
