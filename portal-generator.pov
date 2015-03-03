@@ -1,4 +1,6 @@
 //three dimensional field generator
+#include "colors.inc"
+#include "shapes.inc"
 
 #declare Pi = 22 / 7;
 
@@ -36,7 +38,7 @@
 
 light_source {
   <10, 5, -10>
-  color White
+  color White 
 }
 
 light_source {
