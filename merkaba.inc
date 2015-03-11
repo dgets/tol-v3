@@ -26,7 +26,20 @@
 	 TetrahedronScaleFactor>
 }
 
+//star tetrahedron
+#declare StarTetrahedron = union {
+  object {
+	Tetrahedron_Hollow
+  }
+  object {
+	Tetrahedron_Hollow
+	rotate <180, 0, 0>
+  }
+}
+
 #declare MerkabaUnlit = union {
+  //we're not using StarTetrahedrons here because we need to be able to
+  //control the tetrahedrons separately for texture
   object {
     Tetrahedron_Hollow
     texture { T_Yellow_Glass }
