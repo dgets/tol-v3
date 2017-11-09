@@ -1,12 +1,13 @@
 #include "colors.inc"
 #include "shapes.inc"
 #include "finish.inc"
+#include "stones.inc"
 
 #include "merkaba.inc"
 #include "sephiroth.pov"	//change this to .inc?
 
 camera {
-  location <0, 2, -10>
+  location <0, 12, -35>
   look_at <0, 0, -0.5>
 }
 

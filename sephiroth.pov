@@ -5,7 +5,7 @@
  * the sacred geometrical patterns with some modifications.
  */
 
-#include "stones.inc"
+//#include "stones.inc"
 #include "metals.inc"
 #include "textures.inc"
 #include "glass.inc"

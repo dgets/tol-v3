@@ -19,13 +19,13 @@
   object {
 	Ring
 	scale <0.95, 0.95, 0.95>
-	rotate <0.25, 0, 0>
+	rotate <0, 0.5, 0.5>
   }
 
   object {
 	Ring
 	scale <0.9, 0.9, 0.9>
-	rotate <0, 0.25, 0>
+	rotate <0, 0.25, 0.25>
   }
 
   object {
@@ -47,12 +47,12 @@ light_source {
 }
 
 camera {
-  location <0, 2, 0>
-  look_at <0, 5, 5>
+  location <-20, 25, -50>
+  look_at <0, 0, -8>
 }
 
 sky_sphere {
-  pigment { color Gray }
+  pigment { color LightBlue }
 }
 
 plane {
@@ -62,8 +62,8 @@ plane {
 
 object {
   TrplFieldGen
-  scale <5, 5, 5>
-  translate <0, 5, 7.5>
+  scale <5, 2.5, 5>
+  translate <0, 15, 7.5>
   pigment { color White }
 }
 
