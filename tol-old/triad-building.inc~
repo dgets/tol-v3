@@ -1,0 +1,210 @@
+//all origin centered objects for proper xformation and translation
+//
+//it may be helpful to note here that trigonometric functions start with 0 deg
+//being found at the "3 o'clock" position, not "12 o'clock"
+//
+//also, rotation is "backwards" from the way I would expect it
+
+#declare D1 = 270;
+#declare D2 = 30;
+#declare D3 = 150;
+#declare PX1 = cosd(D1);
+#declare PZ1 = sind(D1);
+#declare PX2 = cosd(D2);
+#declare PZ2 = sind(D2);
+#declare PX3 = cosd(D3);
+#declare PZ3 = sind(D3);
+
+#declare Seph_Diam = 1;
+#declare Dist_Eqlt = 3;	//just using this for now; we'll want to divide the
+	//equilateral triad triangle properly for accurate distances later
+#declare Cyl_Diam = Seph_Diam / 5;
+
+#declare Triad = union {
+	sphere {
+		<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>
+		Seph_Diam
+		pigment { Brown_Agate }
+	}
+
+	sphere {
+		<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>
+		Seph_Diam
+		texture { Blood_Marble }
+	}
+
+	sphere {
+		<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>
+		Seph_Diam
+		texture { Sapphire_Agate }
+	}
+}
+
+#declare Level_Triad_Join = union {
+	cylinder {
+		<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>,
+		<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>,
+		Cyl_Diam
+		pigment { P_Chrome3 }
+		finish { F_MetalB }
+	}
+
+	cylinder {
+		<PX2 * Dist_Eqlt, 0, PZ2 * Dist_Eqlt>,
+		<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>,
+		Cyl_Diam
+		pigment { P_Chrome3 }
+		finish { F_MetalB }
+	}
+
+	cylinder {
+		<PX3 * Dist_Eqlt, 0, PZ3 * Dist_Eqlt>,
+		<PX1 * Dist_Eqlt, 0, PZ1 * Dist_Eqlt>,
+		Cyl_Diam
+		pigment { P_Chrome3 }
+		finish { F_MetalB }
+	}
+}
+
+#declare Tri_Lev = union {
+  object {
+	Triad
+  }
+  object {
+	Level_Triad_Join
+  }
+}
+
+#declare Nine_Seph = union {
+  //note this is lacking all pathways except for the 'horizontal'
+
+  //'top'
+  object {
+	Tri_Lev
+	translate y*4.5
+  }
+
+  //'down', 1st above origin
+  object {
+	Tri_Lev
+	translate y*1.5
+  }
+
+  //1st below origin
+  object {
+	Tri_Lev
+	translate y*-1.5
+  }
+}
+
+#declare Ten_Web = union {
+  //this is the web framework that consists of non-horizontal pathways to all
+  //sephiroth except for the crown
+
+  //verticals
+  cylinder {
+	<PX1 * 3, 4.5, PZ1 * 3>,
+	<PX1 * 3, -1.5, PZ1 * 3>,
+	Cyl_Diam
+	pigment { P_Brass2 }
+	finish { F_MetalC }
+  }
+
+  cylinder {
+	<PX2 * 3, 4.5, PZ2 * 3>,
+	<PX2 * 3, -1.5, PZ2 * 3>,
+	Cyl_Diam
+	pigment { P_Brass2 }
+	finish { F_MetalC }
+  }
+
+  cylinder {
+	<PX3 * 3, 4.5, PZ3 * 3>,
+	<PX3 * 3, -1.5, PZ3 * 3>,
+	Cyl_Diam
+	pigment { P_Silver2 }
+	finish { F_MetalC }
+  }
+
+  //corners to front
+  cylinder {
+	<PX1 * 3, 1.5, PZ1 * 3>,
+	<PX2 * 3, 4.5, PZ2 * 3>,
+	Cyl_Diam
+	pigment { P_Copper2 }
+	finish { F_MetalB }
+  }
+
+  cylinder {
+	<PX1 * 3, 1.5, PZ1 * 3>,
+	<PX3 * 3, 4.5, PZ3 * 3>,
+	Cyl_Diam
+	pigment { P_Copper2 }
+	finish { F_MetalB }
+  }
+
+  cylinder {
+	<PX1 * 3, 1.5, PZ1 * 3>,
+	<PX2 * 3, -1.5, PZ2 * 3>,
+	Cyl_Diam
+	pigment { P_Copper2 }
+	finish { F_MetalB }
+  }
+
+  cylinder {
+	<PX1 * 3, 1.5, PZ1 * 3>,
+	<PX3 * 3, -1.5, PZ3 * 3>,
+	Cyl_Diam
+	pigment { P_Copper2 }
+	finish { F_MetalB }
+  }
+
+  //bottom tier to 'crown'
+  cylinder {
+	<PX1 * 3, -1.5, PZ1 * 3>,
+	<0, -4.5, 0>,
+	Cyl_Diam
+	pigment { P_Chrome1 }
+	finish { F_MetalD }
+  }
+
+  cylinder {
+	<PX2 * 3, -1.5, PZ2 * 3>,
+	<0, -4.5, 0>,
+	Cyl_Diam
+	pigment { P_Chrome1 }
+	finish { F_MetalD }
+  }
+
+  cylinder {
+	<PX3 * 3, -1.5, PZ3 * 3>,
+	<0, -4.5, 0>,
+	Cyl_Diam
+	pigment { P_Chrome1 }
+	finish { F_MetalD }
+  }
+}
+
+#declare TOL = union {
+  //NOTE: this is missing the 'crown' sephiroth
+  object {
+	Nine_Seph
+  }
+
+  object {
+	Ten_Web
+  }
+}
+
+//Testing shit
+//#declare Test_Triad1 = union {
+  //just testing to see if I've got my (steak)(li) wrapped around trig. still
+  //sphere { <cosd(270) * 3, sind(270) * 3, 0> 1 texture { T_Stone1 } }
+  //sphere { <cosd(30) * 3, sind(30) * 3, 0> 1 texture { T_Stone2 } }
+  //sphere { <cosd(150) * 3, sind(150) * 3, 0> 1 texture { T_Stone3 } }
+
+  //orientation sphere (thirty degree trigonometric function base)
+  //sphere { <cosd(-30) * 3, sind(-30) * 3, 0> 1 pigment { color Blue } }
+//}
+
+

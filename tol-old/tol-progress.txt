@@ -1,0 +1,8 @@
+Started progress notes on 7 Oct 10 @ 12:33am
+-currently working on the XtalSpire prism & tapering cap union
+ the cap is currently on the bottom due to translation issues presumably due to
+ not forming it and translating around the origin at onset, also the base size
+ has some sizing issues (about double the size, not sure where taper ends due
+ to it currently being inside of the 'base' of the prism
+-created a standalone testing file for this object
+

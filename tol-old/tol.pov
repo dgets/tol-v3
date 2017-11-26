@@ -1,0 +1,430 @@
+#include "colors.inc"
+#include "shapes.inc"
+#include "shapes2.inc"
+#include "stones.inc"
+#include "metals.inc"
+#include "glass.inc"
+#include "textures.inc"
+#include "shapesq.inc"
+
+//mine
+#include "triad-building.inc"
+#include "merk-n-misc.inc"
+#include "nautilus.inc"
+#include "temple.inc"
+
+camera {
+	//this is directly in 'front' of the sephiroth wheel, outside of the
+	//spire gate
+	location <0, 20, -60>
+	look_at <0, 9, 0>
+}
+
+/*camera {
+	//general view from above (mainly for step & other Z/X axis placements
+	//currently skewed for pyramid/step intersection viewing
+	location <0, 850, 600>
+	look_at <0, 0, 440>
+}*/
+
+
+//setting
+light_source {
+	//behind above camera
+	<0, 10, -45>
+	color White
+}
+
+light_source {
+	//'sun'
+	<0, 600, 60>
+	color White
+}
+
+plane {
+	<0, 1, 0>, -1
+	rotate <0, 45, 0>
+	pigment { checker color Black color Red }
+}
+
+sky_sphere {
+	pigment { MyApocalypse }
+}
+
+#declare RotAng = 0;
+#declare MaxRot = 359;
+
+//Tree of Life/ten sephiroth
+/*
+  Obviously this is not exactly what we were looking for based on Nassim H.'s
+  sacred geometry.  It'll probably be best to do more research later manipul-
+  ating angles or with a modeler that will allow easier changes.
+*/
+union {
+ #while (RotAng <= MaxRot)
+  object {
+    TOL
+    rotate <0, 0, RotAng + 270>	//remember the frustration of this
+    translate <cosd(RotAng) * 4.5, sind(RotAng) * 4.5, 0>
+  }
+
+  #declare RotAng = RotAng + 60;
+ #end
+ translate <0, 9, 0>
+}
+//add the crown to the figure
+sphere {
+	<0, 9, 0>, 1
+	texture { Lightning2 }
+}
+
+//merkaba
+object {
+	Merkaba
+	scale <5, 5, 5>
+	translate <45, 20, 60>
+}
+
+//lets see if a light source behind this helps it become a little more visible
+light_source {
+	<48, 21, 68>
+	color White
+}
+
+//let's put the ZodiacCross behind this a bit; later on I want to add lasers
+//going through it shooting up to different constellations of stars that I
+//want to create next
+/*
+object {
+	ZodiacCross
+	scale <3, 3, 3>
+	rotate <45, 45, 0>
+	translate <0, 15.5, 25>
+	texture { Ruby_Glass }
+	interior { I_Glass }
+}
+*/
+
+/* replacing by object {} in include file
+//merkaba w/internal light
+light_source {
+	<45, 20, 60>
+	color White
+}
+object {        //pointed up
+        Tetrahedron_Hollow
+        scale <5, 5, 5>
+        translate <45, 20, 60>
+        texture { T_Yellow_Glass }
+        interior { I_Glass }
+        //finish { F_Glass8 }
+}
+object {        //pointed down
+        Tetrahedron_Hollow
+        scale <5, 5, 5>
+        rotate <180, 180, 0>
+        translate <45, 20, 60>
+        texture { T_Green_Glass }
+        interior { I_Glass }
+        //finish { F_Glass7 }
+}
+//let's add a thin, hollow sphere around this merkaba
+difference {
+  sphere {
+	<45, 20, 60>, 15.5
+  }
+  sphere {
+	<45, 20, 60>, 15.4
+  }
+  texture { T_Glass1 }
+  interior { I_Glass }
+}
+*/
+object {
+        Pyramid2
+        scale <450, 450, 450>
+        rotate <0, 60, 0>
+        translate <-200, 1, 850>
+        texture { T_Stone21 }
+}
+
+//now irregular stone steps, leading from the POV to the space under the TOL,
+//then branching off to the spaces ahead of the pyramid and under the merkaba
+#declare Step = box {
+	<-0.5, 0.05, 0.5>,
+	<0.5, -0.05, -0.5>
+}
+
+//fm. camera point to base of merkaba wheel
+#declare StartStep = -40;
+#declare StopStep = 0;
+//note these are only Z-axis as we're working with an invariant plane in scene
+#declare MyZ = StartStep;
+#declare StepInc = 1.5;
+#declare RS = seed(StartStep);
+
+#while (MyZ <= StopStep)
+  #declare Twist = (rand(RS) - 0.5) * 45;
+  object {
+	Step
+	rotate <0, Twist, 0>
+	translate <0, -0.95, MyZ>
+	texture { T_Stone9 }
+  }
+  #declare RS = seed(MyZ);
+  #declare MyZ = MyZ + StepInc;
+#end
+
+//fm. base of tree of life to the pyramid base
+#declare StartStepZ = 2;	//so as not to overlap existing underfoot
+#declare StartStepX = 0;
+#declare StopStepZ = 575;
+#declare StopStepX = -200;
+#declare ZStepInc = 2.5;	
+
+#declare ZSteps = (StopStepZ - StartStepZ) / ZStepInc;
+#declare XStepInc = (StopStepX - StartStepX) / ZSteps;
+//obviously we're calculating based on 2.5 Z increments, and using the total
+//as a divisor for the smaller distance, in X
+#declare MyStepZ = StartStepZ;
+#declare MyStepX = StartStepX;
+//this probably seems a little more difficult than it needs to be, but I want
+//to make most of this algorithm reusable
+#declare RS = seed(StopStepZ);
+
+//BUG: there is an issue with where MyStepX ends up
+#while (MyStepZ <= StopStepZ)
+  #declare Twist = (rand(RS) - 0.5) * 35;
+  object {
+	Step
+	//add the random 'twist' irregularity later; this is more difficult
+	//right now because I'm not sure what angle it is approaching the
+	//pyramid
+	rotate <0, 45 + Twist, 0>
+	translate <MyStepX, -0.95, MyStepZ>
+	texture { T_Stone9 }
+  }
+  #declare MyStepZ = MyStepZ + ZStepInc;
+  #declare MyStepX = MyStepX + XStepInc;
+  #declare RS = seed(MyStepZ);
+#end
+
+object {
+	Tower
+	scale <3, 3, 3>
+	translate <-20, 14, 7>
+	pigment { Blood_Marble }
+}
+
+//put a light in it
+light_source {
+	<-10, 20, 10>
+	color White
+}
+
+//let's put the flower of life here in a reflective finish to show us the
+//back of what we have in the foreground :)
+object {
+        FlowerOfLife
+        scale <2.5, 2.5, 2.5>
+        rotate <0, -15, 30>      //point it more at the 'center'/sephiroth
+        translate <-17.5, 10, 16>
+        pigment { P_Chrome1 }
+        finish { F_MetalD }
+}
+
+//let's try a totally 3-D one with these 2 additions
+/*object {
+	FlowerOfLife
+	scale <2.5, 2.5, 2.5>
+	rotate <0, 45, 30>
+	translate <-17.5, 10, 16>
+	pigment { P_Chrome1 }
+	finish { F_MetalD }
+}
+
+object {
+	FlowerOfLife
+	scale <2.5, 2.5, 2.5>
+	rotate <0, 105, 30>
+	translate <-17.5, 10, 16>
+	pigment { P_Chrome1 }
+	finish { F_MetalD }
+}
+*/
+
+//nautili
+object {
+	Nautilus
+	scale <0.33, 0.33, 0.33>
+	translate <-5, 6, -25>
+	rotate <0, -90, 0>
+	pigment { P_Chrome2 }
+	finish { F_MetalA }
+}
+
+object {
+	Nautilus
+	scale <0.33, 0.33, 0.33>
+	translate <5, 6, -25>
+	rotate <0, 90, 0>
+	pigment { P_Chrome2 }
+	finish { F_MetalA }
+}
+
+//crystal spire
+object {
+	XtalSpire
+	translate <-1.8, 1, -13>
+	scale <2.5, 5.75, 2.5>
+	texture { T_Winebottle_Glass }
+	interior { I_Glass }
+}
+
+object {
+	XtalSpire
+	translate <1.8, 1, -13>
+	scale <2.5, 5.75, 2.5>
+	texture { T_Winebottle_Glass }
+	interior { I_Glass }
+}
+
+//VP Eyes above the spires
+object {
+	VPEye
+	translate <(-1.8 * 4), 20, -13>
+}
+
+object {
+	VPEye
+	translate <(1.8 * 4), 20, -13>
+}
+
+//crystal walls
+merge {
+  difference {
+    box {	//rear
+	<-500, 8, 1249>,
+	<500, -1, 1250>
+	texture { T_Winebottle_Glass }
+	interior { I_Glass }
+    }
+
+    #declare StartX = -500;
+    #declare EndX = 500;
+    #declare CurX = StartX + 1;
+    #while (CurX < (EndX - 2))
+      box {
+	<CurX - 0.01, 8.01, 1248.99>,
+	<CurX + 1.01, 7, 1250.01>
+      }
+      #declare CurX = CurX + 2;
+    #end
+  }
+
+  difference {
+    box {	//left side
+	<-500, 8, -20>,
+	<-499, -1, 1250>
+	texture { T_Winebottle_Glass }
+	interior { I_Glass }
+    }
+
+    #declare StartZ = -20;
+    #declare EndZ = 1250;
+    #declare CurZ = StartZ + 1;
+    #while (CurZ < (EndZ - 2))
+      box {
+	<-500.01, 8.01, CurZ>,
+	<-498.99, 7, CurZ + 1>
+      }
+      #declare CurZ = CurZ + 2;
+    #end
+  }
+
+  //obviously these two differences (above & below) could have been combined,
+  //I was just too lazy to restructure the entire 'merge'.  I'll have to do
+  //that later.
+
+  difference {
+    box {	//right side
+	<499, 8, -20>,
+	<500, -1, 1250>
+	texture { T_Winebottle_Glass }
+	interior { I_Glass }
+    }
+
+    #declare StartZ = -20;
+    #declare EndZ = 1250;
+    #declare CurZ = StartZ + 1;
+    #while (CurZ < (EndZ - 2))
+      box {
+        <498.99, 8.01, CurZ>,
+        <500.01, 7, CurZ + 1>
+      }
+      #declare CurZ = CurZ + 2;
+    #end
+  }
+
+  difference {
+    box {	//front left side
+	<-499, 8, -20>,
+	<-7, -1, -19>
+	texture { T_Winebottle_Glass }
+	interior { I_Glass }
+    }
+
+    #declare StartX = -499;
+    #declare EndX = -7;
+    #declare CurX = StartX + 1;
+    #while (CurX < (EndX - 2))
+      box {
+	<CurX - 0.01, 8.01, -20.01>,
+	<CurX + 1.01, 7, -18.99>
+      }
+      #declare CurX = CurX + 2;
+    #end
+  }
+
+  difference {
+    box {	//front right side
+	<7, 8, -20>,
+	<499, -1, -19>
+	texture { T_Winebottle_Glass }
+	interior { I_Glass }
+    }
+
+    #declare StartX = 7;
+    #declare EndX = 499;
+    #declare CurX = StartX + 1;
+    #while (CurX < (EndX - 2))
+      box {
+	<CurX - 0.01, 8.01, -20.01>,
+	<CurX + 1.01, 7, -18.99>
+      }
+      #declare CurX = CurX + 2;
+    #end
+  }
+
+  texture { T_Winebottle_Glass }
+  interior { I_Glass }
+
+}
+
+/* 
+ *open 'temple'
+ *I'll have to try making an oval one with torii beveled with rectangles next:)
+ *let's put it around the merkaba @ 45, 20, 60 (remember merkaba diameter is
+ *15.5 at the outside of the surrounding sphere
+ *DEBUG: serious issue with merkaba/temple placement, just stick it behind the
+ *sephiroth wheel for now
+ */
+
+
+object {
+	OpenTemple
+	scale <5.5, 4, 5.5>
+	translate <45, -4, 60>
+	texture { T_Stone9 }
+}
+
