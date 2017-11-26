@@ -5,10 +5,11 @@
 
 #include "merkaba.inc"
 #include "sephiroth.pov"	//change this to .inc?
+#include "misc-architecture.inc"
 
 camera {
-  location <0, 12, -35>
-  look_at <0, 0, -0.5>
+  location <0, 6, -13>
+  look_at <0, 5.75, -0.5>
 }
 
 sky_sphere {
@@ -43,7 +44,8 @@ plane {
   translate <-1.5, 0, 0>
 } */
 
-object {
+//sephiroth.pov
+/*object {
 	Atziluth
 	translate <0, Dist_Eqlt, 0>
 }
@@ -51,5 +53,29 @@ object {
 object {
 	Beriah
 	//translate not needed; this should be right where we want it
+}*/
+
+//misc-architecture.inc
+/*union {
+    object {
+	TowerBody
+	translate <0, 6, 0>
+	//texture { T_Stone1 }
+    }
+
+    object {
+	TCap
+	translate <0, 6, 0>
+	//scale <0, 2, 0> - why no workee?
+    }
+
+    texture { T_Stone11 }
+}*/
+
+object {
+	Tower
+	translate <0, 6, 0>
+	texture { T_Stone11 }
 }
+
 

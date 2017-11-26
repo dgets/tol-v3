@@ -140,4 +140,6 @@
 	object { Daat }
 }
 
+//so it looks like we still haven't dealt with one level (and the base) of
+//the TOL
 

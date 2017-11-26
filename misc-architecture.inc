@@ -2,6 +2,7 @@
 #include "glass_old.inc"
 
 //tower sans cap
+//cylinder placed at origin; 
 #declare TowerBody = difference {
   #local TStep = 0.2;
   #local ApetureBottom = -5;
@@ -215,7 +216,7 @@ pigment {
 
   #declare Gouges = 20;
   #declare G_Depth = 0.1;       //this is also the 'etching' cylinder's
-radius
+				//radius
   #declare CurGouge = 1;
   #while (CurGouge <= Gouges)
    #declare CurAng = (360 / Gouges) * CurGouge;
