@@ -86,7 +86,16 @@ object {
     texture { T_Stone1 }
 }*/
 
-object {
+/*object {
     SteppedPyramid
     texture { T_Stone2 }
-}
+}*/
+
+//at the risk of complicating things, we really do need to construct this one
+//right here
+#declare DNASeg = union {
+    #local Segments = 4;
+    #local Step = 0;
+    
+    #while (Step <= Segments)
+        
