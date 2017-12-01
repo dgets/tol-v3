@@ -162,19 +162,51 @@ pigment {
   }
 }
 
-//might as well have both types :D
-/* not finished yet
-#declare SteppedPyramid = union {
+#declare SteppedMount = merge {
+ #declare BaseDim = 10;
+ #declare StepHeight = 0.1;
+ #declare TopBaseDim = 7.5;
+ #declare Steps = 9;    //I like the solar system lol hehe xd xd 8-x
+ #declare StepWidth = (BaseDim - TopBaseDim) / Steps;
+ #declare CurStep = 1;
+ 
+ #while (CurStep <= Steps)
+  box { 
+        <((BaseDim - (CurStep * StepWidth)) / -2),
+         ((CurStep - 1) * StepHeight),
+         ((BaseDim - (CurStep * StepWidth)) / -2)>,
+        <((BaseDim - (CurStep * StepWidth)) / 2),
+         (CurStep * StepHeight),
+         ((BaseDim - (CurStep * StepWidth)) / 2)>
+  }
+  #declare CurStep = CurStep + 1;
+ #end
+}
+
+//might as well have both types :D (extrapolate from above)
+/* not finished yet */
+#declare SteppedPyramid = merge {
   #local Steps = 10;
   #local BaseWidth = 15;
+  #local TopBaseWidth = 1;
   #local StepLen = 1;
   #local StepHeight = 1;
-  #local CurStep = 0;
+  #local CurStep = 1;
+  #local StepWidth = (BaseWidth - TopBaseWidth) / Steps;
+  
   #while (CurStep < Steps)
     box {
-	<-((BaseWidth - CurStep) / 2), 
-
-*/
+	    <((BaseWidth - (CurStep * StepWidth)) / -2),    
+	     ((CurStep - 1) * StepHeight),
+	     ((BaseWidth - (CurStep * StepWidth)) / -2)>
+	    <((BaseWidth - (CurStep * StepWidth)) / 2),
+	     (CurStep * StepHeight),
+	     ((BaseDim - (CurStep * StepWidth)) / 2)>
+	}
+	#declare CurStep = CurStep + 1;
+  #end
+}
+        
 
 //crystal spire
 #declare XtalSpire = union {
@@ -258,25 +290,5 @@ Col_Radius)>
   }
  }
 
-}
-
-#declare SteppedMount = merge {
- #declare BaseDim = 10;
- #declare StepHeight = 0.1;
- #declare TopBaseDim = 7.5;
- #declare Steps = 9;    //I like the solar system lol hehe xd xd 8-x
- #declare StepWidth = (BaseDim - TopBaseDim) / Steps;
- #declare CurStep = 1;
- #while (CurStep <= Steps)
-  box { 
-        <((BaseDim - (CurStep * StepWidth)) / -2),
-         ((CurStep - 1) * StepHeight),
-         ((BaseDim - (CurStep * StepWidth)) / -2)>,
-        <((BaseDim - (CurStep * StepWidth)) / 2),
-         (CurStep * StepHeight),
-         ((BaseDim - (CurStep * StepWidth)) / 2)>
-  }
-  #declare CurStep = CurStep + 1;
- #end
 }
 
